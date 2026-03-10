@@ -1,0 +1,4 @@
+@EndUserText.label: 'Service Definition for File Store'
+define service ZUI_FILE_STORE_083 {
+  expose ZI_FILE_STORE_083 as FileStore;
+}

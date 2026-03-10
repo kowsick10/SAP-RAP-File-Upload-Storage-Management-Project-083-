@@ -1,0 +1,24 @@
+unmanaged implementation in class zbp_i_file_store_083 unique;
+strict ( 2 );
+
+define behavior for ZI_FILE_STORE_083 alias FileStore
+lock master
+authorization master ( global, instance ) // Added global here
+{
+  create;
+  update;
+  delete;
+
+  field ( readonly ) FileId, CreatedBy, CreatedAt;
+
+  mapping for zfile_store_083
+  {
+    FileId    = file_id;
+    FileName  = file_name;
+    MimeType  = mime_type;
+    FileSize  = file_size;
+    FileData  = file_data;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+  }
+}

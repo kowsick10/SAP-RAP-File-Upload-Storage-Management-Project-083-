@@ -1,0 +1,79 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: { 
+    typeName: 'Document', 
+    typeNamePlural: 'Documents', 
+    title: { type: #STANDARD, label: 'Document Name', value: 'FileName' },
+    description: { type: #STANDARD, value: 'MimeType' } // Shows the file type under the title
+  },
+  presentationVariant: [{ sortOrder: [{ by: 'CreatedAt', direction: #DESC }] }] // Shows newest files first
+}
+annotate view ZI_FILE_STORE_083 with 
+{
+  @UI.facet: [ 
+    { 
+      id: 'idIdentification', 
+      type: #IDENTIFICATION_REFERENCE, 
+      label: 'General Information', 
+      position: 10 
+    },
+    { 
+      id: 'UploadFacet', 
+      purpose: #STANDARD, 
+      type: #FIELDGROUP_REFERENCE, 
+      targetQualifier: 'UploadGroup',
+      label: 'File Content (Upload/Download)', 
+      position: 20 
+    },
+    { 
+      id: 'AdminFacet', 
+      purpose: #STANDARD, 
+      type: #FIELDGROUP_REFERENCE, 
+      targetQualifier: 'AdminGroup',
+      label: 'Administrative Data', 
+      position: 30 
+    }
+  ]
+
+  @UI.hidden: true
+  FileId;
+
+  @UI: { 
+    lineItem:       [ { position: 10, label: 'File Name', importance: #HIGH } ], 
+    identification: [ { position: 10, label: 'File Name' } ],
+    selectionField: [ { position: 10 } ] // Adds a Search Filter for File Name
+  }
+  FileName;
+
+  @UI: { 
+    lineItem:       [ { position: 20, label: 'Content Type' } ], 
+    identification: [ { position: 20, label: 'Content Type' } ],
+    selectionField: [ { position: 20 } ] // Adds a Search Filter for MIME Type
+  }
+  MimeType;
+
+  @UI: { 
+    lineItem:       [ { position: 30, label: 'Size (Bytes)' } ], 
+    identification: [ { position: 30, label: 'Size (Bytes)' } ] 
+  }
+  FileSize;
+
+  @UI: { 
+    lineItem:   [ { position: 40, label: 'Download', importance: #HIGH } ], 
+    fieldGroup: [ { qualifier: 'UploadGroup', position: 10, label: 'File Stream' } ] 
+  }
+  FileData;
+  
+  @UI: { 
+    lineItem:       [ { position: 50, label: 'Uploaded By' } ],
+    fieldGroup:     [ { qualifier: 'AdminGroup', position: 10, label: 'User' } ],
+    selectionField: [ { position: 30 } ] // Adds a Search Filter for the User
+  }
+  CreatedBy;
+
+  @UI: { 
+    lineItem:   [ { position: 60, label: 'Uploaded On' } ],
+    fieldGroup: [ { qualifier: 'AdminGroup', position: 20, label: 'Date/Time' } ] 
+  }
+  CreatedAt;
+}
